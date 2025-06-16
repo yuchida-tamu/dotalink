@@ -22,16 +22,7 @@ export default function TabLayout() {
             // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
           },
-          android: {
-            // On Android, ensure consistent elevation and shadow
-            elevation: 8,
-            position: 'absolute',
-            height: 49,
-          },
-          default: {
-            // Default style for web
-            height: 49,
-          },
+          default: {},
         }),
       }}>
       <Tabs.Screen

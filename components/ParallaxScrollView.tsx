@@ -1,5 +1,5 @@
 import type { PropsWithChildren, ReactElement } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Animated, {
   interpolate,
   useAnimatedRef,
@@ -45,20 +45,13 @@ export default function ParallaxScrollView({
     };
   });
 
-  // Apply consistent bottom padding for all platforms
-  const contentPadding = Platform.select({
-    ios: bottom,
-    android: bottom,
-    default: bottom,
-  });
-
   return (
     <ThemedView style={styles.container}>
       <Animated.ScrollView
         ref={scrollRef}
         scrollEventThrottle={16}
         scrollIndicatorInsets={{ bottom }}
-        contentContainerStyle={{ paddingBottom: contentPadding }}>
+        contentContainerStyle={{ paddingBottom: bottom }}>
         <Animated.View
           style={[
             styles.header,
