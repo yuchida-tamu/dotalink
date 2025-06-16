@@ -1,6 +1,7 @@
 import { Image } from 'expo-image';
 import { Platform, StyleSheet } from 'react-native';
 
+import { ApiConfigDemo } from '@/components/ApiConfigDemo';
 import { HelloWave } from '@/components/HelloWave';
 import { NativeWindExample } from '@/components/NativeWindExample';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -53,7 +54,8 @@ export default function HomeScreen() {
         </ThemedText>
       </ThemedView>
       
-      {/* NativeWind Example */}
+      <ApiConfigDemo />
+      
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">NativeWind Integration</ThemedText>
         <ThemedText>
