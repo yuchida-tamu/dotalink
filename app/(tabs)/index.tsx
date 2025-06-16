@@ -5,8 +5,11 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { useAppConfig } from '@/hooks/useAppConfig';
 
 export default function HomeScreen() {
+  const appConfig = useAppConfig();
+  
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -20,6 +23,27 @@ export default function HomeScreen() {
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
+      
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">App Information</ThemedText>
+        <ThemedText>
+          App Name: <ThemedText type="defaultSemiBold">{appConfig.appName || 'DotaLink'}</ThemedText>
+        </ThemedText>
+        <ThemedText>
+          Version: <ThemedText type="defaultSemiBold">{appConfig.version || '1.0.0'}</ThemedText>
+        </ThemedText>
+        <ThemedText>
+          Environment: <ThemedText type="defaultSemiBold">
+            {appConfig.isProduction ? 'Production' : 'Development'}
+          </ThemedText>
+        </ThemedText>
+        {appConfig.deviceName && (
+          <ThemedText>
+            Device: <ThemedText type="defaultSemiBold">{appConfig.deviceName}</ThemedText>
+          </ThemedText>
+        )}
+      </ThemedView>
+      
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
         <ThemedText>
