@@ -5,7 +5,7 @@ export function NativeWindExample() {
   return (
     <View className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
       <Text className="text-lg font-bold text-text-light dark:text-text-dark mb-2">
-        NativeWind Example
+        NativeWind Example Component
       </Text>
       <Text className="text-text-light dark:text-text-dark">
         This component is styled using NativeWind, providing a consistent look across platforms.
