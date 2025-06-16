@@ -4,6 +4,9 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
+// Import the global CSS file for NativeWind
+import '../global.css';
+
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function RootLayout() {
