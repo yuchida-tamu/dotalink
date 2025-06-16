@@ -21,6 +21,13 @@ npm run web        # Web browser
 npm run lint       # Run ESLint
 ```
 
+**Environment Variables:**
+```bash
+eas env:pull --environment development  # Sync development environment variables locally
+eas env:pull --environment preview     # Sync preview environment variables locally  
+eas env:pull --environment production  # Sync production environment variables locally
+```
+
 **Project Reset:**
 ```bash
 npm run reset-project  # Move current code to app-example/ and create blank app/
@@ -74,6 +81,35 @@ Use `.ios.tsx` and `.android.tsx` suffixes for platform-specific implementations
 - Tab navigation: Use `(tabs)` directory for tab-based screens
 - Modal screens: Place outside tab groups in `app/` directory
 - Use `expo-router` hooks for navigation (`useRouter`, `useLocalSearchParams`)
+
+## Environment Variables
+
+The project uses environment-specific configuration through EAS build profiles and EAS-managed environment variables:
+
+- **development**: Uses `development` environment
+- **preview**: Uses `preview` environment  
+- **production**: Uses `production` environment
+
+**Environment Variable Management:**
+- Environment variables are managed on EAS servers via dashboard or CLI commands
+- Use `eas env:pull --environment <env>` to sync EAS variables locally for development
+- The `"environment"` key in eas.json determines which environment's variables are used during builds
+
+**Environment Variable Usage:**
+```typescript
+import Constants from 'expo-constants';
+
+// Access environment variables
+const apiUrl = Constants.expoConfig?.extra?.EXPO_PUBLIC_API_URL;
+// or directly from process.env (for EXPO_PUBLIC_ prefixed vars)
+const apiKey = process.env.EXPO_PUBLIC_API_KEY;
+```
+
+**Environment Files:**
+- `.env` - Local development variables only (gitignored)
+- `.env.example` - Template showing expected variables
+- Use `EXPO_PUBLIC_` prefix for variables accessible in client code
+- Production variables are managed via EAS, not local files
 
 ## No Testing Framework
 
