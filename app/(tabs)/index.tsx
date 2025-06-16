@@ -2,6 +2,7 @@ import { Image } from 'expo-image';
 import { Platform, StyleSheet } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
+import { NativeWindExample } from '@/components/NativeWindExample';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -50,6 +51,15 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
+      </ThemedView>
+      
+      {/* NativeWind Example */}
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">NativeWind Integration</ThemedText>
+        <ThemedText>
+          Below is an example of a component styled with NativeWind:
+        </ThemedText>
+        <NativeWindExample />
       </ThemedView>
     </ParallaxScrollView>
   );
