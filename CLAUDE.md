@@ -75,6 +75,29 @@ Use `.ios.tsx` and `.android.tsx` suffixes for platform-specific implementations
 - Modal screens: Place outside tab groups in `app/` directory
 - Use `expo-router` hooks for navigation (`useRouter`, `useLocalSearchParams`)
 
+## Environment Variables
+
+The project uses environment-specific configuration through EAS build profiles:
+
+- **development**: Uses `development` environment
+- **preview**: Uses `preview` environment  
+- **production**: Uses `production` environment
+
+**Environment Variable Usage:**
+```typescript
+import Constants from 'expo-constants';
+
+// Access environment variables
+const apiUrl = Constants.expoConfig?.extra?.EXPO_PUBLIC_API_URL;
+// or directly from process.env (for EXPO_PUBLIC_ prefixed vars)
+const apiKey = process.env.EXPO_PUBLIC_API_KEY;
+```
+
+**Environment Files:**
+- `.env` - Local development variables (gitignored)
+- `.env.example` - Template showing expected variables
+- Use `EXPO_PUBLIC_` prefix for variables accessible in client code
+
 ## No Testing Framework
 
 Currently no formal testing setup. Development testing is done through Expo development builds across multiple platforms.
