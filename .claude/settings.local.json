@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.opendota.com)",
+      "WebFetch(domain:api.opendota.com)",
+      "Bash(npm run lint)"
+    ],
+    "deny": []
+  }
+}

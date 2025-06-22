@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
 
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -7,8 +7,11 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
+import { useHeroes } from '@/hooks/api';
 
 export default function TabTwoScreen() {
+  const { heroes, loading, error, refetch } = useHeroes();
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
@@ -24,6 +27,43 @@ export default function TabTwoScreen() {
         <ThemedText type="title">Explore</ThemedText>
       </ThemedView>
       <ThemedText>This app includes example code to help you get started.</ThemedText>
+      <Collapsible title="Dota 2 Heroes API Test">
+        <ThemedText>
+          Testing the REST API client with OpenDota heroes endpoint.
+        </ThemedText>
+        {loading && (
+          <ThemedView style={styles.loadingContainer}>
+            <ActivityIndicator size="small" />
+            <ThemedText>Loading heroes...</ThemedText>
+          </ThemedView>
+        )}
+        {error && (
+          <ThemedView style={styles.errorContainer}>
+            <ThemedText style={styles.errorText}>Error: {error}</ThemedText>
+            <ThemedText type="link" onPress={refetch}>Retry</ThemedText>
+          </ThemedView>
+        )}
+        {!loading && !error && heroes.length > 0 && (
+          <ThemedView>
+            <ThemedText type="defaultSemiBold">
+              Loaded {heroes.length} heroes successfully!
+            </ThemedText>
+            <ScrollView style={styles.herosList} showsVerticalScrollIndicator={false}>
+              {heroes.slice(0, 10).map((hero) => (
+                <ThemedView key={hero.id} style={styles.heroItem}>
+                  <ThemedText type="defaultSemiBold">{hero.localized_name}</ThemedText>
+                  <ThemedText>Attribute: {hero.primary_attr} | Type: {hero.attack_type}</ThemedText>
+                </ThemedView>
+              ))}
+              {heroes.length > 10 && (
+                <ThemedText style={styles.moreText}>
+                  ...and {heroes.length - 10} more heroes
+                </ThemedText>
+              )}
+            </ScrollView>
+          </ThemedView>
+        )}
+      </Collapsible>
       <Collapsible title="File-based routing">
         <ThemedText>
           This app has two screens:{' '}
@@ -106,5 +146,35 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     gap: 8,
+  },
+  loadingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingVertical: 10,
+  },
+  errorContainer: {
+    paddingVertical: 10,
+    gap: 8,
+  },
+  errorText: {
+    color: '#ff6b6b',
+  },
+  herosList: {
+    maxHeight: 200,
+    marginTop: 10,
+  },
+  heroItem: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginVertical: 2,
+    borderRadius: 6,
+    backgroundColor: 'rgba(128, 128, 128, 0.1)',
+  },
+  moreText: {
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginTop: 8,
+    opacity: 0.7,
   },
 });
