@@ -1,5 +1,6 @@
-import { HttpError } from '@/lib/http';
-import { Hero, openDotaApiService as apiService } from '@/services';
+import { HttpError } from '@/api';
+import { Hero } from '@/models/hero';
+import { openDotaApiService as apiService } from '@/services';
 import { useEffect, useState } from 'react';
 
 export interface UseHeroesState {
