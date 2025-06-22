@@ -34,7 +34,7 @@ export class OpenDotaPlayerApiService implements PlayerApiService {
     }
     
     // If it's a full Steam ID, convert it
-    if (steamId.length === 17 && steamId.startsWith('76561198')) {
+    if (steamId.length === 17 && (steamId.startsWith('76561197') || steamId.startsWith('76561198'))) {
       const accountId = (BigInt(steamId) - BigInt('76561197960265728')).toString();
       return accountId;
     }
