@@ -1,52 +1,25 @@
-import { HttpError } from '@/api';
+import { httpGet } from '@/api';
 import { PlayerData } from '@/models/player';
 import { PlayerApiService } from '@/services/player/PlayerService';
 
 export class OpenDotaPlayerApiService implements PlayerApiService {
-  private readonly baseUrl = 'https://api.opendota.com/api';
-
   async getPlayer(steamId: string): Promise<PlayerData> {
-    try {
-      // OpenDota API expects account ID, not Steam ID
-      // For now, assuming steamId is actually account ID or we need conversion
-      const accountId = this.steamIdToAccountId(steamId);
-      const endpoint = `${this.baseUrl}/players/${accountId}`;
-      
-      console.log(`Fetching player data for account ID: ${accountId}`);
-      
-      const response = await fetch(endpoint);
-      
-      if (!response.ok) {
-        throw new HttpError(
-          `Failed to fetch player data: ${response.status} ${response.statusText}`,
-          response.status,
-          response.status.toString()
-        );
-      }
-      
-      const data = await response.json();
-      
-      // Log the response for testing as specified in requirements
-      console.log('Player data response:', {
-        mmr: data.solo_competitive_rank || data.competitive_rank || 'Unranked',
-        profile: data.profile?.personaname || 'Unknown',
-        rank_tier: data.rank_tier || 'Unranked'
-      });
-      
-      return data as PlayerData;
-    } catch (error) {
-      console.error('Error fetching player data:', error);
-      
-      if (error instanceof HttpError) {
-        throw error;
-      }
-      
-      throw new HttpError(
-        error instanceof Error ? error.message : 'Unknown error occurred while fetching player data',
-        undefined,
-        'PLAYER_FETCH_ERROR'
-      );
-    }
+    // OpenDota API expects account ID, not Steam ID
+    // For now, assuming steamId is actually account ID or we need conversion
+    const accountId = this.steamIdToAccountId(steamId);
+    
+    console.log(`Fetching player data for account ID: ${accountId}`);
+    
+    const data = await httpGet<PlayerData>(`/players/${accountId}`);
+    
+    // Log the response for testing as specified in requirements
+    console.log('Player data response:', {
+      mmr: data.solo_competitive_rank || data.competitive_rank || 'Unranked',
+      profile: data.profile?.personaname || 'Unknown',
+      rank_tier: data.rank_tier || 'Unranked'
+    });
+    
+    return data;
   }
 
   /**
