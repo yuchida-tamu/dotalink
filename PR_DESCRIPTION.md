@@ -12,8 +12,8 @@ This PR addresses issue #2 by integrating NativeWind for universal styling acros
   - metro.config.js: Set up for NativeWind integration
   - nativewind-env.d.ts: Added TypeScript integration
 
-- Implemented a demo component (NativeWindExample) that showcases NativeWind styling
-- Added the example component to the home screen
+- Restructured app to use NativeWind styling throughout
+- Converted all components from template ThemedText/ThemedView to standard React Native components with NativeWind classes
 
 ## Benefits
 
