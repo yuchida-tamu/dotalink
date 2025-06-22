@@ -2,6 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Code Styles
+- Prefer type over interface
+- Destructure imports when possible
+- 
+
 ## Development Commands
 
 **Start Development Server:**
