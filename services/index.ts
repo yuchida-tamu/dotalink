@@ -1,3 +1,2 @@
-export { openDotaApiService } from './implementations/opendotaService';
-export { ApiService } from './interfaces/apiService';
-export { Hero } from './models/hero';
+export { openDotaStatsApiService as openDotaApiService } from './stats/opendotaStatsApiService';
+export { ApiService } from './stats/statsApiService';

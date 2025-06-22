@@ -1,4 +1,4 @@
-import Constants from 'expo-constants';
+import { apiConfig } from '@/api/config';
 
 export interface ApiResponse<T> {
   data: T;
@@ -24,21 +24,13 @@ export class HttpError extends Error {
   }
 }
 
-const getApiConfig = () => {
-  const baseUrl = Constants.expoConfig?.extra?.EXPO_PUBLIC_STATZ_API_URL || process.env.EXPO_PUBLIC_STATZ_API_URL;
-  const token = Constants.expoConfig?.extra?.EXPO_PUBLIC_STATZ_API_TOKEN || process.env.EXPO_PUBLIC_STATZ_API_TOKEN;
-  
-  if (!baseUrl) {
-    throw new Error('API base URL is not configured');
-  }
-
-  return { baseUrl, token };
-};
-
-export const createRequest = (endpoint: string, options: RequestInit = {}): [string, RequestInit] => {
-  const { baseUrl, token } = getApiConfig();
+export const createRequest = (
+  endpoint: string,
+  options: RequestInit = {}
+): [string, RequestInit] => {
+  const { baseUrl, token } = apiConfig;
   const url = `${baseUrl.replace(/\/$/, '')}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
-  
+
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...(options.headers as Record<string, string>),
@@ -70,7 +62,7 @@ export const httpGet = async <T>(endpoint: string): Promise<T> => {
     if (error instanceof HttpError) {
       throw error;
     }
-    
+
     throw new HttpError(
       error instanceof Error ? error.message : 'Unknown error occurred',
       undefined,
@@ -85,7 +77,7 @@ export const httpPost = async <T>(endpoint: string, body?: any): Promise<T> => {
       method: 'POST',
       body: body ? JSON.stringify(body) : undefined,
     });
-    
+
     const response = await fetch(url, options);
 
     if (!response.ok) {
@@ -102,7 +94,7 @@ export const httpPost = async <T>(endpoint: string, body?: any): Promise<T> => {
     if (error instanceof HttpError) {
       throw error;
     }
-    
+
     throw new HttpError(
       error instanceof Error ? error.message : 'Unknown error occurred',
       undefined,

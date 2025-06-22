@@ -1,4 +1,4 @@
-import { Hero } from '@/services/models/hero';
+import { Hero } from '@/models/hero';
 
 export interface HeroesService {
   getHeroes(): Promise<Hero[]>;
