@@ -51,23 +51,19 @@ This is a **React Native Expo application** with universal platform support (iOS
 ## Key Directories
 
 - `app/` - File-based routing with Expo Router
-- `app/(tabs)/` - Tab navigation group with index and explore screens
-- `components/` - Reusable UI components, including themed components
-- `components/ui/` - Platform-specific UI components
+- `app/(tabs)/` - Tab navigation group with heroes and profile screens
+- `components/` - Contains app providers and utilities
 - `constants/` - App-wide constants (Colors, theme definitions)
 - `hooks/` - Custom React hooks for theme and state management
 
 ## Styling Architecture
 
-The project uses a **dual styling approach**:
+The project uses **NativeWind (Tailwind CSS)** for styling:
 
-1. **NativeWind (Tailwind CSS)** - Utility-first classes configured in `tailwind.config.js`
-2. **StyleSheet API** - Traditional React Native styling for complex layouts
-
-**Theming:**
-- Themed components (`ThemedText`, `ThemedView`) automatically adapt to light/dark mode
-- Custom color schemes defined in `constants/Colors.ts`
-- Use `useColorScheme()` and `useThemeColor()` hooks for theme-aware styling
+- **NativeWind** - Utility-first classes configured in `tailwind.config.js`
+- **Dark/Light Mode** - Use NativeWind's `dark:` prefix for theme-aware styling
+- **Custom color schemes** defined in `constants/Colors.ts`
+- **Theme hooks** - Use `useColorScheme()` and `useThemeColor()` hooks for advanced theming
 
 ## Build Configuration
 
@@ -78,7 +74,7 @@ The project uses a **dual styling approach**:
 
 ## Platform-Specific Components
 
-Use `.ios.tsx` and `.android.tsx` suffixes for platform-specific implementations. The project includes platform-aware components in `components/ui/`.
+Use `.ios.tsx` and `.android.tsx` suffixes for platform-specific implementations when needed.
 
 ## Navigation Patterns
 
